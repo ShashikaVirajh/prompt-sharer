@@ -1,3 +1,4 @@
+import Navigation from '@components/navigation';
 import '@styles/globals.css';
 import { FC, ReactNode } from 'react';
 
@@ -15,6 +16,7 @@ const RootLayout: FC<Props> = ({children}): JSX.Element => {
             </div>
 
             <main className="app">
+                <Navigation />
                 {children}
             </main>
         </body>
