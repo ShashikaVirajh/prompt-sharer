@@ -8,7 +8,7 @@ export const metadata = {
 
 const RootLayout: FC<Props> = ({children}): JSX.Element => {
     return (
-     <html>
+     <html lang='en'>
         <body>
             <div className='main'>
                 <div className='gradient' />
