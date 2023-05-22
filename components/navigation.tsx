@@ -14,14 +14,13 @@ import {
 import { BuiltInProviderType } from "next-auth/providers";
 
 const Navigation = () => {
-  // const { data: session } = useSession();
-
-  const isUserAuthenticated = true;
+  const { data: session } = useSession();
 
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
   > | null>();
+
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const Navigation = () => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserAuthenticated ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
               Create Post
@@ -91,7 +90,7 @@ const Navigation = () => {
 
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserAuthenticated ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               src="/assets/images/logo.svg"
