@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Motivation
 
-## Getting Started
+- This project was developed as a reference project to learn next js basics. This is a fullstack application.
+- Tried to provide a complete but simple example for the developers who are new to next js.
+- This was created on the https://www.youtube.com/watch?v=wm5gMKuwSYk next js course by JavaScript Mastery.
+- Backend is 100% similar to this course. But the frontend is fully typescript. Components and pages were arragned in a better way.
 
-First, run the development server:
+## Installation Guide
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+git clone https://github.com/ShashikaVirajh/react-nextjs-prompt-sharer.git
+cd react-nextjs-prompt-sharer
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- To start the server after installation, run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Tech Stack Used
 
-## Learn More
+Typescript - frontend of this fullstack application uses typescript
+Fetch - to make API requests
+Next-Auth - to handle authentication
+MongoDB - As the DBMS
+Express - For backend routing
 
-To learn more about Next.js, take a look at the following resources:
+## Future Enhancements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Adding MUI to the application.
+- Writing unit tests.
+- Configuring prettier, eslint and husky.
+- Setting up a CI/CD pipeline using github actions.
+- Setting up storybook.
+- Validating env variables using zod.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contact Details
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NOTE: If there are any issues when running the application, please contact me.
+Email: shashikasvka@gmail.com
+Whatsapp: +94 713980787## Motivation
