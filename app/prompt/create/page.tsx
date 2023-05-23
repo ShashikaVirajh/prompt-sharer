@@ -4,12 +4,12 @@ import { FC, FormEvent, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Form from "@components/form";
-import { Post, User } from "@types";
+import { Post, SessionUser } from "@types";
 
 const CreatePrompt: FC = (): JSX.Element => {
   const router = useRouter();
   const { data } = useSession();
-  const user = data?.user as User;
+  const user = data?.user as SessionUser;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [post, setPost] = useState<Post>({ prompt: "", tag: "" });
