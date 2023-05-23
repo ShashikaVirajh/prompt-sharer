@@ -4,12 +4,12 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Profile from "@components/profile";
-import { Post, User } from "@types";
+import { Post, SessionUser } from "@types";
 
 const MyProfile = () => {
   const router = useRouter();
   const { data } = useSession();
-  const user = data?.user as User;
+  const user = data?.user as SessionUser;
 
   const [myPosts, setMyPosts] = useState<Post[]>([]);
 

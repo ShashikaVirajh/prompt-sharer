@@ -1,24 +1,28 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { Post, SessionUser } from "@types";
 
-const PromptCard = ({
+const PromptCard: FC<Props> = ({
   post,
   handleEdit,
   handleDelete,
   handleTagClick,
-}: any) => {
-  const { data: session } = useSession();
+}): JSX.Element => {
   const pathName = usePathname();
   const router = useRouter();
-
+  const { data } = useSession();
   const [copied, setCopied] = useState("");
 
-  const handleProfileClick = () => {
-    if (post.creator._id === session?.user?.id) return router.push("/profile");
+  const user = data?.user as SessionUser;
 
-    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+  const handleProfileClick = () => {
+    if (post?.creator?._id === user?.id) return router.push("/profile");
+
+    router.push(
+      `/profile/${post?.creator?._id}?name=${post?.creator?.username}`
+    );
   };
 
   const handleCopy = () => {
@@ -35,7 +39,7 @@ const PromptCard = ({
           onClick={handleProfileClick}
         >
           <Image
-            src={post?.creator?.image}
+            src={post?.creator?.image ?? ""}
             alt="user_image"
             width={40}
             height={40}
@@ -74,7 +78,7 @@ const PromptCard = ({
         #{post.tag}
       </p>
 
-      {session?.user?.id === post?.creator?._id && pathName === "/profile" && (
+      {user?.id === post?.creator?._id && pathName === "/profile" && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
           <p
             className="font-inter text-sm green_gradient cursor-pointer"
@@ -92,6 +96,13 @@ const PromptCard = ({
       )}
     </div>
   );
+};
+
+type Props = {
+  post: Post;
+  handleEdit: () => void;
+  handleDelete: () => void;
+  handleTagClick?: (tag: string) => void;
 };
 
 export default PromptCard;
