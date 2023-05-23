@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { FC, FormEvent, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Form from "@components/form";
-import { Post, SessionUser } from "@types";
+import { FC, FormEvent, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import Form from '@components/form';
+import { Post, SessionUser } from '@types';
 
 const CreatePrompt: FC = (): JSX.Element => {
   const router = useRouter();
@@ -12,15 +12,15 @@ const CreatePrompt: FC = (): JSX.Element => {
   const user = data?.user as SessionUser;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [post, setPost] = useState<Post>({ prompt: "", tag: "" });
+  const [post, setPost] = useState<Post>({ prompt: '', tag: '' });
 
-  const createPrompt = async (event: FormEvent<HTMLFormElement>) => {
+  const createPrompt = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/prompt/new", {
-        method: "POST",
+      const response = await fetch('/api/prompt/new', {
+        method: 'POST',
         body: JSON.stringify({
           prompt: post.prompt,
           userId: user?.id,
@@ -29,7 +29,7 @@ const CreatePrompt: FC = (): JSX.Element => {
       });
 
       if (response.ok) {
-        router.push("/");
+        router.push('/');
       }
     } catch (error) {
       console.log(error);

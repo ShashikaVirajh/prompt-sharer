@@ -13,8 +13,8 @@ export type Post = {
 };
 
 export type PostUser = {
-  _id?: string;
-  username?: string;
-  image?: string;
-  email?: string;
+  _id: string;
+  username: string;
+  image: string;
+  email: string;
 };

@@ -1,13 +1,8 @@
-import Link from "next/link";
-import { FC } from "react";
+import { Post } from '@types';
+import Link from 'next/link';
+import { FC } from 'react';
 
-const Form: FC<Props> = ({
-  type,
-  post,
-  setPost,
-  submitting,
-  handleSubmit,
-}): JSX.Element => {
+const Form: FC<Props> = ({ type, post, setPost, submitting, handleSubmit }): JSX.Element => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
@@ -15,8 +10,8 @@ const Form: FC<Props> = ({
       </h1>
 
       <p className="desc text-left max-w-md">
-        {type} and share amazing prompts with the world, and let your
-        imagination run wild with any AI-powered platform
+        {type} and share amazing prompts with the world, and let your imagination run wild with any
+        AI-powered platform
       </p>
 
       <form
@@ -24,9 +19,7 @@ const Form: FC<Props> = ({
         className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
       >
         <label>
-          <span className="font-satoshi font-semibold text-base text-gray-700">
-            Your AI Prompt
-          </span>
+          <span className="font-satoshi font-semibold text-base text-gray-700">Your AI Prompt</span>
 
           <textarea
             value={post.prompt}
@@ -39,10 +32,8 @@ const Form: FC<Props> = ({
 
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
-            Field of Prompt{" "}
-            <span className="font-normal">
-              (#product, #webdevelopment, #idea, etc.)
-            </span>
+            Field of Prompt{' '}
+            <span className="font-normal">(#product, #webdevelopment, #idea, etc.)</span>
           </span>
 
           <input
@@ -75,8 +66,8 @@ const Form: FC<Props> = ({
 
 type Props = {
   type: string;
-  post: any;
-  setPost: any;
+  post: Post;
+  setPost: (data: any) => void;
   submitting: boolean;
   handleSubmit: (e: any) => Promise<void>;
 };

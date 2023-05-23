@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { FormEvent, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Form from "@components/form";
-import { Post } from "@types";
+import { FC, FormEvent, useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Form from '@components/form';
+import { Post } from '@types';
 
-const UpdatePrompt = () => {
+const UpdatePrompt: FC = (): JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const promptId = searchParams.get("id");
+  const promptId = searchParams.get('id');
 
-  const [post, setPost] = useState<Post>({ prompt: "", tag: "" });
+  const [post, setPost] = useState<Post>({ prompt: '', tag: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const getPromptDetails = async () => {
+    const getPromptDetails = async (): Promise<void> => {
       const response = await fetch(`/api/prompt/${promptId}`);
       const data: Post = await response.json();
 
@@ -27,15 +27,15 @@ const UpdatePrompt = () => {
     if (promptId) getPromptDetails();
   }, [promptId]);
 
-  const updatePrompt = async (event: FormEvent<HTMLFormElement>) => {
+  const updatePrompt = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setIsSubmitting(true);
 
-    if (!promptId) return alert("Prompt not found");
+    if (!promptId) return alert('Prompt not found');
 
     try {
       const response = await fetch(`/api/prompt/${promptId}`, {
-        method: "PATCH",
+        method: 'PATCH',
         body: JSON.stringify({
           prompt: post.prompt,
           tag: post.tag,
@@ -43,7 +43,7 @@ const UpdatePrompt = () => {
       });
 
       if (response.ok) {
-        router.push("/");
+        router.push('/');
       }
     } catch (error) {
       console.log(error);

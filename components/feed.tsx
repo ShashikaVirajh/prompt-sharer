@@ -1,63 +1,48 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import PromptCard from "./prompt-card";
+import { useState, useEffect, FC, FormEvent } from 'react';
+import { Post } from '@types';
+import PromptCardList from './prompt-card-list';
 
-const PromptCardList = ({ data, handleTagClick }: any) => {
-  return (
-    <div className="mt-16 prompt_layout">
-      {data.map((post: any) => (
-        <PromptCard
-          key={post._id}
-          post={post}
-          handleTagClick={handleTagClick}
-        />
-      ))}
-    </div>
-  );
-};
-
-const Feed = () => {
+const Feed: FC = (): JSX.Element => {
   const [allPosts, setAllPosts] = useState([]);
-
-  const [searchText, setSearchText] = useState("");
-  const [searchTimeout, setSearchTimeout] = useState<any>(null);
-  const [searchedResults, setSearchedResults] = useState([]);
-
-  const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
-    const data = await response.json();
-
-    setAllPosts(data);
-  };
+  const [searchText, setSearchText] = useState('');
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
+  const [searchedResults, setSearchedResults] = useState<Post[]>([]);
 
   useEffect(() => {
+    const fetchPosts = async (): Promise<void> => {
+      const response = await fetch('/api/prompt');
+      const data = await response.json();
+
+      setAllPosts(data);
+    };
+
     fetchPosts();
   }, []);
 
-  const filterPrompts = (searchtext: string) => {
-    const regex = new RegExp(searchtext, "i");
+  const filterPrompts = (searchtext: string): Post[] => {
+    const regex = new RegExp(searchtext, 'i');
+
     return allPosts.filter(
-      (item: any) =>
-        regex.test(item.creator.username) ||
-        regex.test(item.tag) ||
-        regex.test(item.prompt)
+      (post: Post) =>
+        regex.test(post.creator?.username ?? '') || regex.test(post.tag) || regex.test(post.prompt),
     );
   };
 
-  const handleSearchChange = (e: any) => {
+  const handleSearchChange = (e: FormEvent<HTMLInputElement>) => {
     clearTimeout(searchTimeout);
-    setSearchText(e.target.value);
+    setSearchText(e.currentTarget.value);
 
     setSearchTimeout(
       setTimeout(() => {
-        const searchResult = filterPrompts(e.target.value);
+        const searchResult = filterPrompts(e.currentTarget.value);
         setSearchedResults(searchResult);
-      }, 500)
+      }, 500),
     );
   };
 
-  const handleTagClick = (tagName: string) => {
+  const handleTagClick = (tagName: string): void => {
     setSearchText(tagName);
 
     const searchResult = filterPrompts(tagName);
@@ -78,10 +63,7 @@ const Feed = () => {
       </form>
 
       {searchText ? (
-        <PromptCardList
-          data={searchedResults}
-          handleTagClick={handleTagClick}
-        />
+        <PromptCardList data={searchedResults} handleTagClick={handleTagClick} />
       ) : (
         <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}

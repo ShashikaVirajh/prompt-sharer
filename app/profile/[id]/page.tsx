@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import Profile from "@components/profile";
-import { Post } from "@types";
+import { FC, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Profile from '@components/profile';
+import { Post } from '@types';
 
-const UserProfile = ({ params }: any) => {
+const UserProfile: FC<Props> = ({ params }): JSX.Element | null => {
   const searchParams = useSearchParams();
-  const userName = searchParams.get("name");
+  const userName = searchParams.get('name');
 
   const [userPosts, setUserPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPosts = async (): Promise<void> => {
       const response = await fetch(`/api/users/${params?.id}/posts`);
       const data = await response.json();
 
@@ -22,6 +22,8 @@ const UserProfile = ({ params }: any) => {
     if (params?.id) fetchPosts();
   }, [params.id]);
 
+  if (!userName) return null;
+
   return (
     <Profile
       name={userName}
@@ -29,6 +31,10 @@ const UserProfile = ({ params }: any) => {
       data={userPosts}
     />
   );
+};
+
+type Props = {
+  params: { id?: string };
 };
 
 export default UserProfile;

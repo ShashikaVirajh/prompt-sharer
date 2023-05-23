@@ -1,11 +1,11 @@
-import Navigation from "@components/navigation";
-import Provider from "@components/provider";
-import "@styles/globals.css";
-import { FC, ReactNode } from "react";
+import Navigation from '@components/navigation';
+import Provider from '@components/provider';
+import '@styles/globals.css';
+import { FC, ReactNode } from 'react';
 
 export const metadata = {
-  title: "Prompt Sharer",
-  description: "Discover & Share AI Prompts",
+  title: 'Prompt Sharer',
+  description: 'Discover & Share AI Prompts',
 };
 
 const RootLayout: FC<Props> = ({ children }): JSX.Element => {

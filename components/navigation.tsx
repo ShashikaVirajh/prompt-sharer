@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import {
   signIn,
   signOut,
@@ -10,8 +10,8 @@ import {
   getProviders,
   LiteralUnion,
   ClientSafeProvider,
-} from "next-auth/react";
-import { BuiltInProviderType } from "next-auth/providers";
+} from 'next-auth/react';
+import { BuiltInProviderType } from 'next-auth/providers';
 
 const Navigation = () => {
   const { data: session } = useSession();
@@ -51,17 +51,13 @@ const Navigation = () => {
               Create Post
             </Link>
 
-            <button
-              type="button"
-              onClick={() => signOut()}
-              className="outline_btn"
-            >
+            <button type="button" onClick={() => signOut()} className="outline_btn">
               Sign Out
             </button>
 
             <Link href="/profile">
               <Image
-                src={session.user.image ?? ""}
+                src={session.user.image ?? ''}
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -93,7 +89,7 @@ const Navigation = () => {
         {session?.user ? (
           <div className="flex">
             <Image
-              src={session.user?.image ?? ""}
+              src={session.user?.image ?? ''}
               width={37}
               height={37}
               className="rounded-full"

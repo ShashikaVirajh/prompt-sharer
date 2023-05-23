@@ -1,34 +1,27 @@
-import { FC, useState } from "react";
-import Image from "next/image";
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
-import { Post, SessionUser } from "@types";
+import { FC, useState } from 'react';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Post, SessionUser } from '@types';
 
-const PromptCard: FC<Props> = ({
-  post,
-  handleEdit,
-  handleDelete,
-  handleTagClick,
-}): JSX.Element => {
+const PromptCard: FC<Props> = ({ post, handleEdit, handleDelete, handleTagClick }): JSX.Element => {
   const pathName = usePathname();
   const router = useRouter();
   const { data } = useSession();
-  const [copied, setCopied] = useState("");
+  const [copied, setCopied] = useState('');
 
   const user = data?.user as SessionUser;
 
   const handleProfileClick = () => {
-    if (post?.creator?._id === user?.id) return router.push("/profile");
+    if (post?.creator?._id === user?.id) return router.push('/profile');
 
-    router.push(
-      `/profile/${post?.creator?._id}?name=${post?.creator?.username}`
-    );
+    router.push(`/profile/${post?.creator?._id}?name=${post?.creator?.username}`);
   };
 
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
-    setTimeout(() => setCopied(""), 3000);
+    setTimeout(() => setCopied(''), 3000);
   };
 
   return (
@@ -39,7 +32,7 @@ const PromptCard: FC<Props> = ({
           onClick={handleProfileClick}
         >
           <Image
-            src={post?.creator?.image ?? ""}
+            src={post?.creator?.image ?? ''}
             alt="user_image"
             width={40}
             height={40}
@@ -47,23 +40,15 @@ const PromptCard: FC<Props> = ({
           />
 
           <div className="flex flex-col">
-            <h3 className="font-satoshi font-semibold text-gray-900">
-              {post?.creator?.username}
-            </h3>
-            <p className="font-inter text-sm text-gray-500">
-              {post?.creator?.email}
-            </p>
+            <h3 className="font-satoshi font-semibold text-gray-900">{post?.creator?.username}</h3>
+            <p className="font-inter text-sm text-gray-500">{post?.creator?.email}</p>
           </div>
         </div>
 
         <div className="copy_btn" onClick={handleCopy}>
           <Image
-            src={
-              copied === post.prompt
-                ? "/assets/icons/tick.svg"
-                : "/assets/icons/copy.svg"
-            }
-            alt={copied === post.prompt ? "tick_icon" : "copy_icon"}
+            src={copied === post.prompt ? '/assets/icons/tick.svg' : '/assets/icons/copy.svg'}
+            alt={copied === post.prompt ? 'tick_icon' : 'copy_icon'}
             width={12}
             height={12}
           />
@@ -78,18 +63,12 @@ const PromptCard: FC<Props> = ({
         #{post.tag}
       </p>
 
-      {user?.id === post?.creator?._id && pathName === "/profile" && (
+      {user?.id === post?.creator?._id && pathName === '/profile' && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
-          <p
-            className="font-inter text-sm green_gradient cursor-pointer"
-            onClick={handleEdit}
-          >
+          <p className="font-inter text-sm green_gradient cursor-pointer" onClick={handleEdit}>
             Edit
           </p>
-          <p
-            className="font-inter text-sm orange_gradient cursor-pointer"
-            onClick={handleDelete}
-          >
+          <p className="font-inter text-sm orange_gradient cursor-pointer" onClick={handleDelete}>
             Delete
           </p>
         </div>
@@ -100,9 +79,9 @@ const PromptCard: FC<Props> = ({
 
 type Props = {
   post: Post;
-  handleEdit: () => void;
-  handleDelete: () => void;
   handleTagClick?: (tag: string) => void;
+  handleDelete?: () => void;
+  handleEdit?: () => void;
 };
 
 export default PromptCard;
